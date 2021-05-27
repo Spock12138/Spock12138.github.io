@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-05-27T14:33:24.614Z</updated>
+    <updated>2021-05-27T14:35:36.691Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -16,7 +16,8 @@
         <link href="https://Spock12138.github.io/post/hui-zuo-zi-mu-jiu-ke-yi-wei-suo-yu-wei/">
         </link>
         <updated>2021-05-27T14:19:18.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>之前在摸鱼的时候，经常看到各种大神花式捕鲸。其中会做字幕的大佬带给了我特别多的欢乐，于是萌生了学习做字幕的想法。</strong></p>
+        <content type="html"><![CDATA[<!-- more -->
+<p><strong>之前在摸鱼的时候，经常看到各种大神花式捕鲸。其中会做字幕的大佬带给了我特别多的欢乐，于是萌生了学习做字幕的想法。</strong></p>
 <p>#所需要的工具<br>
 aegisub--可以在网上直接下载，作用编辑字幕。[教程链接].(https://www.bilibili.com/video/av6527949/)<br>
 小丸子工具箱--用于格式转化。[下载链接].(https://www.bilibili.com/video/av88335927/)</p>

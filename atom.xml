@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-05-27T10:10:34.500Z</updated>
+    <updated>2021-05-27T10:15:19.656Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -10,6 +10,106 @@
     <logo>https://Spock12138.github.io/images/avatar.png</logo>
     <icon>https://Spock12138.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 安半愚的小窝</rights>
+    <entry>
+        <title type="html"><![CDATA[洛谷P1734最大约数和]]></title>
+        <id>https://Spock12138.github.io/post/luo-gu-p1734-zui-da-yue-shu-he/</id>
+        <link href="https://Spock12138.github.io/post/luo-gu-p1734-zui-da-yue-shu-he/">
+        </link>
+        <updated>2021-05-27T10:11:47.000Z</updated>
+        <summary type="html"><![CDATA[<p>方法：找规律，加贪心背包。可以不用01背包</p>
+<p>下表是举例的十个数。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">9</td>
+</tr>
+</tbody>
+</table>
+<p>可以看出， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mn>2</mn><mo>∗</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>=</mo><mi>f</mi><mo>[</mo><mn>2</mn><mo>∗</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[2*n+1]=f[2*n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span>，由此我们的任务量缩减了一半。</p>
+<p>第二步，分析上面的偶数，发现其最大约数和有两种情况，一是自己本身构成最大约数和，二是两个数相加构成最大约数和。如何判断是哪种情况呢，附上此部分关键代码</p>
+<pre><code class="language-cpp">double d=ans*1.0/i;// 创建一个未知量记录约数与其本身比值
+if(d&gt;maxn){        // 如果性价比高于这个比值进行替换操作
+f[i]=ans;
+flag=i;
+maxn=d;
+}
+else {
+f[i]=f[flag]+f[i-flag];// 否则装入之前最优比值 
+}
+</code></pre>
+<p>第一篇题解，于五月十八日作</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>方法：找规律，加贪心背包。可以不用01背包</p>
+<p>下表是举例的十个数。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">9</td>
+</tr>
+</tbody>
+</table>
+<p>可以看出， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mn>2</mn><mo>∗</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>=</mo><mi>f</mi><mo>[</mo><mn>2</mn><mo>∗</mo><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[2*n+1]=f[2*n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mclose">]</span></span></span></span>，由此我们的任务量缩减了一半。</p>
+<p>第二步，分析上面的偶数，发现其最大约数和有两种情况，一是自己本身构成最大约数和，二是两个数相加构成最大约数和。如何判断是哪种情况呢，附上此部分关键代码</p>
+<pre><code class="language-cpp">double d=ans*1.0/i;// 创建一个未知量记录约数与其本身比值
+if(d&gt;maxn){        // 如果性价比高于这个比值进行替换操作
+f[i]=ans;
+flag=i;
+maxn=d;
+}
+else {
+f[i]=f[flag]+f[i-flag];// 否则装入之前最优比值 
+}
+</code></pre>
+<p>第一篇题解，于五月十八日作</p>
+<!-- more -->
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://Spock12138.github.io/post/hello-gridea/</id>

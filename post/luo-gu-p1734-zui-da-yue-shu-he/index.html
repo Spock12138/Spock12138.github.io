@@ -2,16 +2,51 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>安半愚的小窝</title>
+<title>洛谷P1734最大约数和 | 安半愚的小窝</title>
 <link rel="shortcut icon" href="https://Spock12138.github.io/favicon.ico?v=1622110484216">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://Spock12138.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="安半愚的小窝 - Atom Feed" href="https://Spock12138.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="洛谷P1734最大约数和 | 安半愚的小窝 - Atom Feed" href="https://Spock12138.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="不积跬步无以至千里" />
+    <meta name="description" content="方法：找规律，加贪心背包。可以不用01背包
+下表是举例的十个数。
+
+
+
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+
+
+
+1
+1
+3
+3
+6
+6
+7
+7
+9
+9
+
+
+
+可以看出， f[2∗n+1]=f[2∗n]f[2*n+1]=f[2*n..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
   <body>
     <div class="main">
@@ -68,25 +103,24 @@
   </div>
 </div>
 
-    
-        <div class="post-container">
-  
-    <article class="post">
-      <a href="https://Spock12138.github.io/post/luo-gu-p1734-zui-da-yue-shu-he/">
-        <h2 class="post-title">洛谷P1734最大约数和</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2021-05-27
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-      </div>
-      
-      <div class="post-abstract">
-        <p>方法：找规律，加贪心背包。可以不用01背包</p>
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              洛谷P1734最大约数和
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-05-27
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>方法：找规律，加贪心背包。可以不用01背包</p>
 <p>下表是举例的十个数。</p>
 <table>
 <thead>
@@ -131,44 +165,29 @@ f[i]=f[flag]+f[i-flag];// 否则装入之前最优比值
 }
 </code></pre>
 <p>第一篇题解，于五月十八日作</p>
+<!-- more -->
 
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://Spock12138.github.io/post/hello-gridea/">
-        <h2 class="post-title">Hello Gridea</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2018-12-12
-        </span>
-        <span>
-          2 min read
-        </span>
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
         
-          <a href="https://Spock12138.github.io/tag/PckrnpnD9/" class="post-tag">
-            # Gridea
-          </a>
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Spock12138.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
         
-      </div>
-      
-      <div class="post-abstract">
-        <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
 
-      </div>
-    </article>
-  
-</div>
+        
 
-    
-        <div class="pagination-container">
-  
-  
-</div>
-
-    
         <div class="site-footer">
   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
   <a class="rss" href="https://Spock12138.github.io/atom.xml" target="_blank">
@@ -178,5 +197,46 @@ f[i]=f[flag]+f[i-flag];// 否则装入之前最优比值
 
       </div>
     </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
   </body>
 </html>

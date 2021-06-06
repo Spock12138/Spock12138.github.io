@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-06-02T04:45:56.612Z</updated>
+    <updated>2021-06-06T14:45:02.385Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -10,6 +10,144 @@
     <logo>https://Spock12138.github.io/images/avatar.png</logo>
     <icon>https://Spock12138.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 安半愚的小窝</rights>
+    <entry>
+        <title type="html"><![CDATA[六月第一周学习总结]]></title>
+        <id>https://Spock12138.github.io/post/liu-yue-di-yi-zhou-xue-xi-zong-jie/</id>
+        <link href="https://Spock12138.github.io/post/liu-yue-di-yi-zhou-xue-xi-zong-jie/">
+        </link>
+        <updated>2021-06-06T14:26:34.000Z</updated>
+        <content type="html"><![CDATA[<p>正式打算参加算法比赛，打算今年九月份报名ccf。为此现在开始刷算法，数据结构。</p>
+<p>这周复习了归并排序，快速排序，快读(一次没用对过)，还有dfs，bfs。背板子使我快乐(bushi)。</p>
+<pre><code>/**bfs板子，解决了cf920A。比dfs复杂些。要求使用队列。对此专门搜索了dfs与bfs的差异。dfs每层
+*拓展完之后加入新的节点，如同队列，先进先出。dfs走到哪里，搜到哪里。
+个人理解，bfs如同多维时间跨度同时发生。
+dfs相对的是拥有回溯功能，能够回溯时间。
+**/
+        #include&lt;iostream&gt;
+        #include&lt;cstring&gt;
+        #include&lt;cstdio&gt;
+        #include&lt;queue&gt;
+        using namespace std;
+        const int maxn=220;
+        struct Node{
+        int s,seq;
+        }node;
+        queue&lt;Node&gt;q;
+        int n,len,k,t,ans=-1;
+        bool vis[220];
+        int main()
+        {
+            cin&gt;&gt;n;
+            while(n&gt;0){
+                --n;
+                memset(vis,0,sizeof(vis));
+                cin&gt;&gt;len&gt;&gt;k;
+                for(int i=1;i&lt;=k;++i){
+                    cin&gt;&gt;t;
+                    Node tmp;
+                    tmp.s=t;
+                    tmp.seq=1;
+                    vis[t]=1;
+                    q.push(tmp);
+                }
+                while(!q.empty()){
+                    Node x;
+                    x=q.front();
+                    q.pop();
+                    ans=max(ans,x.seq);//cout&lt;&lt;&quot;ans:&quot;&lt;&lt;ans&lt;&lt;&quot; &quot;&lt;&lt;endl;
+                    if(x.s&gt;1&amp;&amp;!vis[x.s-1]){
+                        Node tmp;
+                        tmp.s=x.s-1;
+                        tmp.seq=x.seq+1;
+                        vis[x.s-1]=1;
+                        q.push(tmp);
+                    }
+                    if(x.s&lt;len&amp;&amp;!vis[x.s+1]){
+                        Node tmp;
+                        tmp.s=x.s+1;
+                        tmp.seq=x.seq+1;
+                        vis[x.s+1]=1;
+                        q.push(tmp);
+                    }
+                }
+                cout&lt;&lt;ans&lt;&lt;endl;
+                ans=-1;
+            }
+            return 0;
+        }
+</code></pre>
+<p>下面的是合并排序，可以解决逆序对问题</p>
+<pre><code>/**主要思路总结。利用b[i]记录数组a[]的分段排序。三个while实现b[]的个数到达r-l。
+然后将其赋值给a[]。
+**/
+        void msort(int l,int r)
+        {
+            if(l==r)
+                return ;
+            int mid=(l+r)/2;
+            int i=l,j=mid+1,num=l;
+            msort(l,mid);
+            msort(mid+1,r);
+            while(i&lt;=mid&amp;&amp;j&lt;=r){
+                if(a[i]&lt;=a[j]){
+                    b[num]=a[i];
+                    ++i,++num;
+                }
+                else {
+                    b[num]=a[j];
+                    ++j,++num;
+                    ans+=mid-i+1;
+                }
+            }
+            while(i&lt;=mid){
+                b[num]=a[i];
+                ++num,++i;
+            }
+            while(j&lt;=r){
+                b[num]=a[j];
+                ++num,++j;
+            }
+            for(int i=l;i&lt;=r;++i){
+                a[i]=b[i];
+            }
+        }
+</code></pre>
+<p>最后是链表实现数组，这个当初没有进行实例化操作，很抽象。如果带入一组数据，很容易发现每个vector的作用</p>
+<pre><code>      #include&lt;iostream&gt;
+      #include&lt;vector&gt;
+      using namespace std;
+      vector&lt;int &gt; head,nxt,to;
+      int u,v,n,m;
+      void add_line(int u,int v)
+      {
+          nxt.push_back(head[u]);//nxt记录head的浏览记录，时间回溯。
+          head[u]=to.size();//head记录最终位置
+          to.push_back(v);//to比较容易理解。边的结束位置
+      }
+      bool find_edge(int u,int v)
+      {
+          for(int i=head[u];~i;i=nxt[i]){
+            if(to[i]==v){
+                return true;
+            }
+          }
+          return false;
+      }
+      int main()
+      {
+          cin&gt;&gt;n&gt;&gt;m;
+          head.resize(n+1,-1);
+          nxt.resize(n+1,false);
+          for(int i=1;i&lt;=m;++i){
+            cin&gt;&gt;u&gt;&gt;v;
+            add_line(u,v);
+          }
+          return 0;
+      }
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[算法学习记录--快读，快速输出]]></title>
         <id>https://Spock12138.github.io/post/suan-fa-xue-xi-ji-lu-kuai-du-kuai-su-shu-chu/</id>

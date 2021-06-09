@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-06-06T14:45:26.627Z</updated>
+    <updated>2021-06-09T14:34:46.190Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://Spock12138.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 安半愚的小窝</rights>
     <entry>
-        <title type="html"><![CDATA[六月第一周学习总结]]></title>
+        <title type="html"><![CDATA[算法周结--搜索，排序，链式前向星建图]]></title>
         <id>https://Spock12138.github.io/post/liu-yue-di-yi-zhou-xue-xi-zong-jie/</id>
         <link href="https://Spock12138.github.io/post/liu-yue-di-yi-zhou-xue-xi-zong-jie/">
         </link>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-06-10T03:52:15.313Z</updated>
+    <updated>2021-06-10T12:59:13.021Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -83,6 +83,48 @@ int main()
 }
 </code></pre>
 <h3 id="二三种最短路方法">二.三种最短路方法</h3>
+<p>1.Floyd算法，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>∗</mo><mn>3</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n*3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span> ( <s>其实就是三个for循环</s> )</p>
+<pre><code>for(int k=1;k&lt;=n;++k){
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1;j&lt;=n;++j){
+            if(i==j||adj[i][k]==inf)
+            continue;
+            adj[i][j]=min(adj[i][j],adj[i][k]+adj[k][j]);
+        }
+    }
+}
+</code></pre>
+<p>2.spfa算法，利用松弛操作</p>
+<pre><code>void spfa()
+{
+    queue&lt;int&gt;q;
+    for(int i=1;i&lt;=n;++i)//初始化
+    {
+        dis[i]=inf;
+        vis[i]=0;
+    }
+    q.push_back(s);
+    vis[s]=1;
+    while(!q.empty()){
+        int u=q.front();
+        vis[u]=0;
+        q.pop();
+        for(int i=head[u];i;i=edge[i].nxt){
+            int v=edge[i].to;
+            if(dis[v]&gt;dis[u]+edge[i].dis){//松弛操作
+                dis[v]=dis[u]+edge[i].dis;
+                if(vis[v]==0){//入队操作
+                    q.push(v);
+                    vis[v]=1;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>3.dijkstra算法，思想：贪心。优化：减少松弛。缺点：遇到负权图卡死。</p>
+<pre><code>
+</code></pre>
 ]]></content>
     </entry>
     <entry>

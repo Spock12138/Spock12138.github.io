@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-06-10T12:59:13.021Z</updated>
+    <updated>2021-06-11T13:00:37.042Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -123,8 +123,33 @@ int main()
 }
 </code></pre>
 <p>3.dijkstra算法，思想：贪心。优化：减少松弛。缺点：遇到负权图卡死。</p>
-<pre><code>
+<pre><code>void dijkstra()
+{
+    for(int i=1;i&lt;=n;++i){
+        dis[i]=inf;
+        vis[i]=0;
+    }
+    int u=s;
+    dis[s]=0;
+    while(!vis[u]){//搜完整张图
+        vis[u]=1;//标记为经过点
+     for(int i=head[u];i;edge[i].nxt){
+         int v=edge[i].to;
+         if(dis[v]&gt;dis[i]+edge[u].dis){
+             dis[v]=dis[i]+edge[u].dis;
+         }
+         long long minn=inf;
+         for(int i=1;i&lt;=n;++i){
+             if(dis[i]&lt;minn&amp;&amp;!vis[i]){
+                 minn=dis[i]
+                 u=i;
+             }
+         }
+     }   
+    }
+}
 </code></pre>
+<p>以上是整理的三个最短路常见模板。关于图论的学习暂时就到这里。dijkstra的堆优化可能以后有空补上。(<s>其实就是懒得搞</s>)</p>
 ]]></content>
     </entry>
     <entry>

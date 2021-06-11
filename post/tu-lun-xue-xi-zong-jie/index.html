@@ -256,7 +256,7 @@
                         src='https://Spock12138.github.io/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
         </div>
         <div class="avatar-border">
-            <img src="https://Spock12138.github.io/images/avatar.png?v=1623329945825" class="avatar">
+            <img src="https://Spock12138.github.io/images/avatar.png?v=1623416411711" class="avatar">
         </div>
         <div class="sitename">安半愚的小窝</div>
         <span class="description" data-text='["不积跬步无以至千里"]'>&nbsp;</span>
@@ -919,7 +919,7 @@ menulist.eq(i).show();
             </div>
             <div class="postinfo-detail">
                 <div class="postdate"><i class="fa fa-calendar"></i>2021-06-09</div>
-            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 3 min read</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 4 min read</div>
             <div class="posttag">
                 
                 <a data-pjax href="https://Spock12138.github.io/tag/78jERNjIZ/" class="postlink">
@@ -1045,8 +1045,33 @@ int main()
 }
 </code></pre>
 <p>3.dijkstra算法，思想：贪心。优化：减少松弛。缺点：遇到负权图卡死。</p>
-<pre><code>
+<pre><code>void dijkstra()
+{
+    for(int i=1;i&lt;=n;++i){
+        dis[i]=inf;
+        vis[i]=0;
+    }
+    int u=s;
+    dis[s]=0;
+    while(!vis[u]){//搜完整张图
+        vis[u]=1;//标记为经过点
+     for(int i=head[u];i;edge[i].nxt){
+         int v=edge[i].to;
+         if(dis[v]&gt;dis[i]+edge[u].dis){
+             dis[v]=dis[i]+edge[u].dis;
+         }
+         long long minn=inf;
+         for(int i=1;i&lt;=n;++i){
+             if(dis[i]&lt;minn&amp;&amp;!vis[i]){
+                 minn=dis[i]
+                 u=i;
+             }
+         }
+     }   
+    }
+}
 </code></pre>
+<p>以上是整理的三个最短路常见模板。关于图论的学习暂时就到这里。dijkstra的堆优化可能以后有空补上。(<s>其实就是懒得搞</s>)</p>
 
             </div>
             <hr style="width: 80%;">

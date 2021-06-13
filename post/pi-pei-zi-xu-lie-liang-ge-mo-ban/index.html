@@ -2,13 +2,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="
-之前在摸鱼的时候，经常看到各种大神花式捕鲸。其中会做字幕的大佬带给了我特别多的欢乐，于是萌生了学习做字幕的想法。
-#所需要的工具
-aegisub--可以在网上直接下载，作用编辑字幕。教程链接
-小丸子工具箱--用于格式转化。下载链接
-如果需..." />
-    <meta name="keywords" content="一些好玩的尝试" />
+    <meta name="description" content="今天第一次遇到子序列的问题，自己写的太难看了，就记了几个板子。
+void solve1()//删除法，删去匹配成功的，flag判断是否有不合格的
+{
+    while(cin&gt;&gt;s&gt;&gt;t){
+        int..." />
+    <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://Spock12138.github.io/media/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://Spock12138.github.io/styles/main.css">
     <!-- 代码渲染风格css -->
@@ -26,7 +25,7 @@ aegisub--可以在网上直接下载，作用编辑字幕。教程链接
     <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
     <!-- 数学公式 -->
     
-    <title>会做字幕就可以为所欲为</title>
+    <title>匹配子序列两个模板</title>
 
     <!-- 大纲索引css调整 -->
     
@@ -920,38 +919,55 @@ menulist.eq(i).show();
         <div class="postshow postpadding" style="padding-bottom: 0;">
             
             <div class="postdetailimg">
-                <img src="https://Spock12138.github.io/post-images/hui-zuo-zi-mu-jiu-ke-yi-wei-suo-yu-wei.png" class="postimage" style="cursor:auto">
+                
+                <img src="\media\images\custom-postdefaultimage.png" class="postimage">
+                
             </div>
             <div class="postinfo-detail">
-                <div class="postdate"><i class="fa fa-calendar"></i>2021-05-27</div>
-                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 1 min read</div>
-                <div class="posttag">
-                    
-                    <a data-pjax href="https://Spock12138.github.io/tag/QS_YX6REI/" class="postlink">
-                        <i class="fa fa-tag"></i> 一些好玩的尝试
-                    </a>
-                    
-                </div>
+                <div class="postdate"><i class="fa fa-calendar"></i>2021-06-13</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 1 min read</div>
+            <div class="posttag">
+                
             </div>
-            
+        </div>
+        
         <div id="articlecontent">
             <div id="texttitle" style="text-align: center">
-                <h2 id="ptitle">会做字幕就可以为所欲为</h2>
+                <h2 id="ptitle">匹配子序列两个模板</h2>
                 <!-- id 将作为查询条件 -->
-                <div id="pl" style="display:none">https://Spock12138.github.io/post/hui-zuo-zi-mu-jiu-ke-yi-wei-suo-yu-wei/</div>
+                <div id="pl" style="display:none">https://Spock12138.github.io/post/pi-pei-zi-xu-lie-liang-ge-mo-ban/</div>
                 <div id="rootaddr" style="display:none">https://Spock12138.github.io</div>
                 
             </div>
             <div class="text ">
-                <!-- more -->
-<p><strong>之前在摸鱼的时候，经常看到各种大神花式捕鲸。其中会做字幕的大佬带给了我特别多的欢乐，于是萌生了学习做字幕的想法。</strong></p>
-<p>#所需要的工具<br>
-aegisub--可以在网上直接下载，作用编辑字幕。<a href="https://www.bilibili.com/video/av6527949/">教程链接</a><br>
-小丸子工具箱--用于格式转化。<a href="https://www.bilibili.com/video/av88335927/">下载链接</a></p>
-<p>如果需要gif转化，gif剪切等操作，可以点<a href="https://ezgif.com/">这里</a></p>
-<figure data-type="image" tabindex="1"><img src="https://Spock12138.github.io/post-images/1622125980466.gif" alt="" loading="lazy"></figure>
-<p>更新，有个网站直接有模板，可以直接套用模板GIF，写出自己想要的台词。网站在<a href="https://sorry.xuty.tk/hataraku/">这里</a></p>
-<figure data-type="image" tabindex="2"><img src="https://Spock12138.github.io/post-images/1622556335778.gif" alt="" loading="lazy"></figure>
+                <p>今天第一次遇到子序列的问题，<s>自己写的太难看了</s>，就记了几个板子。</p>
+<pre><code>void solve1()//删除法，删去匹配成功的，flag判断是否有不合格的
+{
+    while(cin&gt;&gt;s&gt;&gt;t){
+        int flag=0;
+        for(int i=0;s[i];++i){
+            int mark=t.find(s[i]);
+            if(mark!=-1){
+                t.erase(0,mark+1);//删去不必要的，优化
+            }
+            else {
+                flag=1;
+                cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;
+                break;
+            }
+        }
+        if(!flag) cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;
+    }
+}
+</code></pre>
+<p>第二种方法</p>
+<pre><code>void solve2()
+{
+    while(cin&gt;&gt;s&gt;&gt;t){
+        
+    }
+}
+</code></pre>
 
             </div>
             <hr style="width: 80%;">
@@ -966,7 +982,7 @@ aegisub--可以在网上直接下载，作用编辑字幕。<a href="https://www
             <div class="postfooter">
                 <ul class="post-copyright">
                     <li><strong>文章作者：</strong></li>
-            <li><strong>原文链接：</strong>https://Spock12138.github.io/post/hui-zuo-zi-mu-jiu-ke-yi-wei-suo-yu-wei/</li>
+            <li><strong>原文链接：</strong>https://Spock12138.github.io/post/pi-pei-zi-xu-lie-liang-ge-mo-ban/</li>
             <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
                 许可协议。转载请注明出处！</li>
             </ul>
@@ -993,31 +1009,19 @@ aegisub--可以在网上直接下载，作用编辑字幕。<a href="https://www
             
         <div id="otherpost">
             
-            <a  data-pjax class="prev-post-pc" href="https://Spock12138.github.io/post/suan-fa-xue-xi-ji-lu-kuai-du-kuai-su-shu-chu/"  style="color: black;">
-                <div id="ppcontainer">
+            
+            <a data-pjax class="next-post-pc" href="https://Spock12138.github.io/post/tu-lun-xue-xi-zong-jie/"  style="color: black;">
+                <div id="npcontainer">
                     
                     
                     <img src="\media\images\custom-postdefaultimage.png" style="width: 100%;" class="opimg">
                     
                     
-                    <h4 class="optitle">算法学习记录--快读，快速输出</h4>
-                </div>
-            </a>
-            <div class="prev-post">
-                上一篇 <a  data-pjax href="https://Spock12138.github.io/post/suan-fa-xue-xi-ji-lu-kuai-du-kuai-su-shu-chu/">算法学习记录--快读，快速输出</a>
-            </div>
-            
-            
-            <a data-pjax class="next-post-pc" href="https://Spock12138.github.io/post/luo-gu-p1734-zui-da-yue-shu-he/"  style="color: black;">
-                <div id="npcontainer">
-                    
-                    <img src="https://Spock12138.github.io/post-images/luo-gu-p1734-zui-da-yue-shu-he.png" style="width: 100%;" class="opimg">
-                    
-                    <h4 class="optitle">洛谷P1734最大约数和</h4>
+                    <h4 class="optitle">图论学习总结--Floyd，spfa与dijkstra模板</h4>
                 </div>
             </a>
             <div class="next-post">
-                下一篇 <a  data-pjax href="https://Spock12138.github.io/post/luo-gu-p1734-zui-da-yue-shu-he/">洛谷P1734最大约数和</a>
+                下一篇 <a  data-pjax href="https://Spock12138.github.io/post/tu-lun-xue-xi-zong-jie/">图论学习总结--Floyd，spfa与dijkstra模板</a>
             </div>
             
         </div>

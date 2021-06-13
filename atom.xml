@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-06-13T13:26:01.411Z</updated>
+    <updated>2021-06-13T14:13:52.992Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -10,6 +10,42 @@
     <logo>https://Spock12138.github.io/images/avatar.png</logo>
     <icon>https://Spock12138.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 安半愚的小窝</rights>
+    <entry>
+        <title type="html"><![CDATA[匹配子序列两个模板]]></title>
+        <id>https://Spock12138.github.io/post/pi-pei-zi-xu-lie-liang-ge-mo-ban/</id>
+        <link href="https://Spock12138.github.io/post/pi-pei-zi-xu-lie-liang-ge-mo-ban/">
+        </link>
+        <updated>2021-06-13T13:28:37.000Z</updated>
+        <content type="html"><![CDATA[<p>今天第一次遇到子序列的问题，<s>自己写的太难看了</s>，就记了几个板子。</p>
+<pre><code>void solve1()//删除法，删去匹配成功的，flag判断是否有不合格的
+{
+    while(cin&gt;&gt;s&gt;&gt;t){
+        int flag=0;
+        for(int i=0;s[i];++i){
+            int mark=t.find(s[i]);
+            if(mark!=-1){
+                t.erase(0,mark+1);//删去不必要的，优化
+            }
+            else {
+                flag=1;
+                cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;
+                break;
+            }
+        }
+        if(!flag) cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;
+    }
+}
+</code></pre>
+<p>第二种方法</p>
+<pre><code>void solve2()
+{
+    while(cin&gt;&gt;s&gt;&gt;t){
+        
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[图论学习总结--Floyd，spfa与dijkstra模板]]></title>
         <id>https://Spock12138.github.io/post/tu-lun-xue-xi-zong-jie/</id>

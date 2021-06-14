@@ -255,7 +255,7 @@ void solve1()//删除法，删去匹配成功的，flag判断是否有不合格�
                         src='https://Spock12138.github.io/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
         </div>
         <div class="avatar-border">
-            <img src="https://Spock12138.github.io/images/avatar.png?v=1623593630135" class="avatar">
+            <img src="https://Spock12138.github.io/images/avatar.png?v=1623646607151" class="avatar">
         </div>
         <div class="sitename">安半愚的小窝</div>
         <span class="description" data-text='["不积跬步无以至千里"]'>&nbsp;</span>
@@ -960,11 +960,17 @@ menulist.eq(i).show();
     }
 }
 </code></pre>
-<p>第二种方法</p>
+<p>第二种方法  //写的太漂亮了</p>
 <pre><code>void solve2()
 {
     while(cin&gt;&gt;s&gt;&gt;t){
-        
+        queue&lt;char&gt;qs;
+        for(const char &amp;e:s)
+        qs.push(e);
+        for(const char &amp;e:t)
+        if(e==qs.front())
+        qs.pop();
+        cout&lt;&lt;(qs.empty()?&quot;Yes&quot;:&quot;No&quot;)&lt;&lt;endl;
     }
 }
 </code></pre>

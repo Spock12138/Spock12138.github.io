@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-06-16T00:54:11.664Z</updated>
+    <updated>2021-06-20T13:18:58.592Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -16,7 +16,69 @@
         <link href="https://Spock12138.github.io/post/fu-xi-yue-se-fu-huan/">
         </link>
         <updated>2021-06-16T00:48:53.000Z</updated>
-        <content type="html"><![CDATA[<p><s>先鸽了</s></p>
+        <content type="html"><![CDATA[<p>约瑟夫环总结，利用一天的时间回顾了约瑟夫的几种算法。顺便学习了利用指针，构建一个双向链表，存储队列。<br>
+这里总结一下最简单的求约瑟夫环顺序的方法--模拟队列法：</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;queue&gt;
+using namespace std;
+queue&lt;int&gt;q;
+int n,m,nownum;//n：总人数，m：数到m出队
+void solve()
+{
+     cin&gt;&gt;n;
+     for(int i=1;i&lt;=n;++i)
+     q.push(i);
+     newnum=1;
+     while(n){//直到所有人都出队
+             if(nownum==m){
+                 cout&lt;&lt;q.front()&lt;&lt;&quot; &quot;;
+                 q.pop();
+                 nownum=1;
+                 --n;
+             }
+             else{
+                 ++nownum;
+                 q.push(q.front());
+                 q.pop();
+             }
+     } 
+}
+</code></pre>
+<p>这里补充下双向链表</p>
+<pre><code>const int n=10005;
+struct Peo{
+    int ID;
+    Peo *next,*front;
+    Peo(){
+        next=front=0;
+    }
+}p[n];
+void solve()//建立链表
+{
+     for(int i=1;i&lt;n-1;++i) //这里排除队首，队尾
+     {
+          p[i].front=p+i-1;
+          //**这里笔者敲错了。
+          点（.）是用于结构体变量访问成员，箭头（-&gt;）是用于结构体指针访问成员。
+          **/
+          p[i].next=p+i+1;
+          p[i].id=i+1;   
+     }
+     p[0].front=p+n-1;
+     p[n-1].front=p+n-2;
+     p[0].next=p+1;
+     p[n-1].next=p;
+     p[0].ID=1;
+     p[n-1].ID=n;
+}
+void cut(Peo *num)
+{
+    num=num-&gt;front;
+    num-&gt;next=num-&gt;next-&gt;next;//注意，p-&gt;next等价于q。
+    num=num-&gt;next;
+    num-&gt;front=num-&gt;front-&gt;front;
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>

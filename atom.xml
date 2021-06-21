@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-06-20T13:18:58.592Z</updated>
+    <updated>2021-06-21T14:07:01.302Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -10,6 +10,57 @@
     <logo>https://Spock12138.github.io/images/avatar.png</logo>
     <icon>https://Spock12138.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 安半愚的小窝</rights>
+    <entry>
+        <title type="html"><![CDATA[卡特兰数三种推导]]></title>
+        <id>https://Spock12138.github.io/post/qia-te-lan-shu-si-chong-tui-dao/</id>
+        <link href="https://Spock12138.github.io/post/qia-te-lan-shu-si-chong-tui-dao/">
+        </link>
+        <updated>2021-06-20T13:19:53.000Z</updated>
+        <content type="html"><![CDATA[<p>在做栈相关的的问题，遇到了卡特兰数的问题。了解了不同的求解方法<br>
+<strong>第一种，记忆化搜索</strong></p>
+<pre><code>int dfs(i,j)
+{
+    if(f[i][j])
+    return f[i][j];
+    if(i==0)
+    return 1;
+    if(j&gt;0)f[i][j]+=dfs(i,j-1);
+    f[i][j]+=dfs(i-1,j+1);
+    return f[i][j];
+}
+void solve()
+{
+    dfs(n,0);
+}
+</code></pre>
+<p><strong>第二种，递推，dp</strong></p>
+<pre><code>void solve()
+{
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1;j&lt;=n;++j){
+            if(i==j)f[i][j]=f[i-1][j];//初始化，栈中元素为空，必须队列出一个元素填入
+            else f[i][j]=f[i-1][j]+f[i][j-1];
+        }
+    }
+}
+</code></pre>
+<p><strong>第三种，卡特兰数</strong><br>
+第三种学到了好多，比如排列数的递推，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>(</mo><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mo>)</mo><mo>=</mo><mi>C</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>C</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">C(n,m)=C(n-1,m-1)+C(n-1,m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span>，可以不使用又臭又长的阶乘。<br>
+设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 为第n个卡特兰数，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mi>C</mi><mo>(</mo><mn>2</mn><mo>∗</mo><mi>n</mi><mo separator="true">,</mo><mi>n</mi><mo>)</mo><mo>−</mo><mi>C</mi><mo>(</mo><mn>2</mn><mo>∗</mo><mi>n</mi><mo separator="true">,</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">f(n)=C(2*n,n)-C(2*n,n-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
+<pre><code>void solve()
+{
+    for(int i=1;i&lt;=2*n;++i){
+        f[i][i]=f[i][0]=1;//f[][]为组合数，递推组合数
+        for(int j=1;j&lt;i;++j){
+            f[i][j]=f[i-1][j-1]+f[i-1][j];
+        }
+    }
+    cout&lt;&lt;f[2*n][n]-f[2*n][n-1];
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[复习约瑟夫环]]></title>
         <id>https://Spock12138.github.io/post/fu-xi-yue-se-fu-huan/</id>

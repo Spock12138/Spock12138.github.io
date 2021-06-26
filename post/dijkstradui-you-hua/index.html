@@ -2,27 +2,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <meta name="description" content="之前咕了好久，在尝试这题的时候跟着大佬学习了堆优化(虽然说不加优化也能过)。
+先说下思想，Dij的核心就是贪心松弛，在寻找最近的点使用for(i 1:n)，时间复杂度是O(n)。而使用堆优化可以将复杂度降到O(logn)。
+利用堆实现优先队..." />
+    <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://Spock12138.github.io/media/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
     <link rel="stylesheet" href="https://Spock12138.github.io/styles/main.css">
-    <script src="https://Spock12138.github.io/media/js/valine.min.js"></script>
-    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-    <meta name="description" content="不积跬步无以至千里" />
-    <meta http-equiv="x-pjax-version" content="v123">
-    <title>安半愚的小窝</title>
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>Dijkstra+堆优化</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
 </head>
 
-
 <body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://Spock12138.github.io</div>
     <div id="content">
-        <div class="nav-large">
-            <div class="row">
-                <!-- ----------------左侧菜单栏html 👇-------------------------------------->
-                
-                <!--------------- pc端菜单栏👇 ---------------->
-                <div class="side"><head>
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <head>
+  <!-- 引入Bootstrap核心样式文件 -->
+  <link rel="stylesheet" href="https://Spock12138.github.io/media/css/bootstrap.min.css">
+</head>
+<style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" href="https://Spock12138.github.io">安半愚的小窝&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about">
+            关于
+          </a>
+        </li>
+        
+        
+        
+          
+        <li><a data-pjax href="https://Spock12138.github.io/friends">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
     <link rel="stylesheet" href="https://Spock12138.github.io/media/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://Spock12138.github.io/styles/main.css">
     
@@ -759,7 +924,11 @@ menulist.eq(i).show();
 }
 </script>
 <!--------------------- 菜单栏图标加载功能👆 -----------------------></div>
-                <!--------------- pc端菜单栏👆 ---------------->
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
                 <div id="tab1" class="tab">
                     <div class="bars">
                         <span></span>
@@ -769,633 +938,285 @@ menulist.eq(i).show();
                     <div class="close"></div>
                 </div>
                 <div class="col-md-1 col-lg-3"></div>
-                <!----------- 移动端导航栏👇 ----------------->
-                <div class="mobilebar"><head>
-  <!-- 引入Bootstrap核心样式文件 -->
-  <link rel="stylesheet" href="https://Spock12138.github.io/media/css/bootstrap.min.css">
-</head>
-<style>
-  .navmobile {
-    z-index: 15;
-    max-height: 40vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
-
-  @media screen and (max-width: 1200px) {
-    .navbar {
-      max-width: 100vw;
-    }
-  }
-
-  @media screen and (max-width:1200px) and (min-width: 768px) {
-    @media (min-width: 768px) {
-      .navbar-nav {
-        float: right;
-        margin: 0;
-      }
-    }
-  }
-
-  @media screen and (max-width:768px) {
-    .mbapspan {
-      padding: 0;
-    }
-  }
-</style>
-<div class="pjaxloading"  onclick="pjaxloadingClose()">
-  <div class="loadingbackground"></div>
-  <div id="loading">
-    <div class="loading">
-    </div>
-  </div>
-</div>
-<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
-        aria-expanded="false" id="barbutton">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a data-pjax class="navbar-brand" href="https://Spock12138.github.io">安半愚的小窝&nbsp;&nbsp;|</a>
-      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
-          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="barmenu">
-      <ul class="nav navbar-nav">
-        
-        
-        <li>
-          <a data-pjax href="/">
-            首页
-          </a>
-        </li>
-        
-        
-        
-        <li>
-          <a data-pjax href="/archives">
-            归档
-          </a>
-        </li>
-        
-        
-        
-        <li>
-          <a data-pjax href="/tags">
-            标签
-          </a>
-        </li>
-        
-        
-        
-        <li>
-          <a data-pjax href="/post/about">
-            关于
-          </a>
-        </li>
-        
-        
-        
-          
-        <li><a data-pjax href="https://Spock12138.github.io/friends">友链</a></li>
-
-        
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-
-
-  <!-- 引入jQuery核心js文件 -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
-  <script>
-    let btstate = false;
-    var bt = $("#barbutton");
-    var bm = $("#barmenu");
-    bt.click(function () {
-      dropdown();
-    })
-    function dropdown() {
-      console.log(btstate);
-      //下拉
-      if (btstate == false) {
-        bt.removeClass("collapsed");
-        bt.attr("aria-expanded", "true");
-        bm.attr("aria-expanded", "true")
-        bm.fadeIn(700);
-        btstate = true;
-      }
-      else {
-        bt.addClass("collapsed");
-        bt.attr("aria-expanded", "false");
-        bm.removeClass("in");
-        bm.hide();
-        bm.attr("aria-expanded", "false");
-        btstate = false;
-      }
-    }
-  </script> 
-                <!----------- 移动端导航栏👆 ----------------->
-                </div>
-                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
-                    <!-- 移动端 -->
-                    <div class="mobilebar">
-                        <!-- 移动端欢迎页 -->
-<div class="welcome">
-    <div class="avatar-border">
-        <img src="https://Spock12138.github.io/images/avatar.png?v=1624698822539" class="avatar">
-    </div>
-    <span class="mobiledescribtion"></span>
-</div>
-
-
-<div id="mobilebgurl" style="display:none">\media\images\custom-mobilebgimage.jpg</div>
-
-<script>
-    var welcome = $('.welcome');
-    var bgurl = document.getElementById("mobilebgurl").innerHTML;
-    for (var i = 0; i < 3; i++)
-        bgurl = bgurl.replace("\\", "/");
-    welcome.css("background", "url('" + bgurl + "')");
-    var mobiledes = document.querySelector(".mobiledescribtion");
-    var text = "不积跬步无以至千里";
-    // 当前显示第几个字
-    var mobilecharIndex = 1;
-    // 每个字显示间隔默认是500毫秒
-    var mobiledelta = 500;
-
-    // 记录动画执行开始时间
-    var mobilestart = null;
-    // 是否为删除动画
-    var mobileisDeleting = false;
-
-    // 动画回调函数
-    function mobileLoadDes(time) {
-        window.requestAnimationFrame(mobileLoadDes);
-        // 初始化开始时间
-        if (!mobilestart) start = time;
-        // 获取时间间隔
-        var mobileprogress = time - mobilestart;
-        // 每隔一定的时间，打印出一个新的字符
-        if (mobileprogress > mobiledelta) {
-            // 如果是打字效果
-            if (!mobileisDeleting) {
-                // 给展示文字的span新增一个字符，使用innerHTML来替换，charIndex自增1，然后返回新的字符串子串
-                mobiledes.innerHTML = "&nbsp;" + text.slice(
-                    0,
-                    ++mobilecharIndex
-                );
-                mobiledelta = 500 - Math.random() * 400;
-            } else {
-                // 如果是删除效果，则把文字一个一个减掉
-                mobiledes.innerHTML = "&nbsp;" + text.slice(
-                    0,
-                    mobilecharIndex--
-                );
-            }
-            // 把star更新为当前时间，进行下一个周期
-            mobilestart = time;
-
-            // 如果文字已经全部打印完毕
-            if (mobilecharIndex === text.length) {
-                // 下次开始删除文字
-                mobileisDeleting = true;
-                // 删除文字的间隔为200毫秒
-                mobiledelta = 100;
-                // 额外等待1.2秒后再删除
-                mobilestart = time + 1000;
-            }
-
-            // 如果文字删除完毕
-            if (mobilecharIndex < 0) {
-                mobileisDeleting = false;
-                // 额外增加200毫秒延迟
-                mobilestart = time + 200;
-            }
-        }
-    }
-
-    window.requestAnimationFrame(mobileLoadDes);
-</script>
-                        <img src="" alt="" class="plbg">
-<script>
-    var bgchoice = "default";
-    if(bgchoice=='default')
-        var plbgurl = "\media\images\custom-mobileplbgimage.jpg"
-    else  
-        var plbgurl = ""
-    $(".plbg").attr("src",plbgurl);
-    $(".plbg").fadeIn(200);
-</script>
-                    </div>
-                    <div style="display:none">
-        <div id="vcomments">
-        </div>
-        <script>
-            var valine = new Valine();
-            var curpath = window.location.pathname;
-            if (curpath[curpath.length - 1] != '/')
-                curpath += '/'
-            valine.init({
-                el: '#vcomments',
-                appId: '',
-                appKey: '',
-                notify: true,
-                verify: false,
-                avatar: 'retro',
-                pageSize: 10,
-                placeholder: '既然来了，何不畅所欲言呢？',
-                recordIP: true,
-                path: curpath //[重点] 记得添加path路径
-            });
-        </script>
-        <script type="text/javascript">
-            var jrsc = '既然来了，何不畅所欲言呢？';
-            jinrishici.load(function (result) {
-                // 自己的处理逻辑
-                jrsc = result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin
-                    .dynasty + " · " + result.data.origin.author;
-            });
-        </script>
-
-</div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
                     <link rel="stylesheet" href="https://Spock12138.github.io/media/css/font-awesome.css">
 
-<div id="post-container">
-    
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/dijkstradui-you-hua/" class="apost">
-            <div id="post" style="width:100%">
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
                 
                 <img src="\media\images\custom-postdefaultimage.png" class="postimage">
                 
-            <div class="posttitlebox">
-                <div class="posttitle" >
-                Dijkstra+堆优化
             </div>
-    </div>
-</div>
-</a>
-<div class="postinfo">
-    <div class="postdate"><i class="fa fa-calendar"></i>2021-06-26</div>
-    <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 3 min read</div>
-    <div class="posttag">
-        
-    </div>
-</div>
-
-</div>
-
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/qia-te-lan-shu-si-chong-tui-dao/" class="apost">
-            <div id="post" style="width:100%">
-                
-                <img src="\media\images\custom-postdefaultimage.png" class="postimage">
-                
-            <div class="posttitlebox">
-                <div class="posttitle" >
-                卡特兰数三种推导
-            </div>
-    </div>
-</div>
-</a>
-<div class="postinfo">
-    <div class="postdate"><i class="fa fa-calendar"></i>2021-06-20</div>
-    <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 2 min read</div>
-    <div class="posttag">
-        
-        <a data-pjax href="https://Spock12138.github.io/tag/78jERNjIZ/" class="postlink">
-            <i class="fa fa-tag"></i> 算法学习记录
-        </a>
-        
-    </div>
-</div>
-
-</div>
-
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/fu-xi-yue-se-fu-huan/" class="apost">
-            <div id="post" style="width:100%">
-                
-                <img src="\media\images\custom-postdefaultimage.png" class="postimage">
-                
-            <div class="posttitlebox">
-                <div class="posttitle" >
-                复习约瑟夫环
-            </div>
-    </div>
-</div>
-</a>
-<div class="postinfo">
-    <div class="postdate"><i class="fa fa-calendar"></i>2021-06-16</div>
-    <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 2 min read</div>
-    <div class="posttag">
-        
-        <a data-pjax href="https://Spock12138.github.io/tag/78jERNjIZ/" class="postlink">
-            <i class="fa fa-tag"></i> 算法学习记录
-        </a>
-        
-    </div>
-</div>
-
-</div>
-
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/zhuan-zai-ren-sheng-de-zhen-di/" class="apost">
-            <div id="post" style="width:100%">
-                
-                <img src="\media\images\custom-postdefaultimage.png" class="postimage">
-                
-            <div class="posttitlebox">
-                <div class="posttitle" >
-                转载--人生的真谛
-            </div>
-    </div>
-</div>
-</a>
-<div class="postinfo">
-    <div class="postdate"><i class="fa fa-calendar"></i>2021-06-16</div>
-    <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 2 min read</div>
-    <div class="posttag">
-        
-        <a data-pjax href="https://Spock12138.github.io/tag/QS_YX6REI/" class="postlink">
-            <i class="fa fa-tag"></i> 一些好玩的尝试
-        </a>
-        
-    </div>
-</div>
-
-</div>
-
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/pi-pei-zi-xu-lie-liang-ge-mo-ban/" class="apost">
-            <div id="post" style="width:100%">
-                
-                <img src="\media\images\custom-postdefaultimage.png" class="postimage">
-                
-            <div class="posttitlebox">
-                <div class="posttitle" >
-                匹配子序列两个模板
-            </div>
-    </div>
-</div>
-</a>
-<div class="postinfo">
-    <div class="postdate"><i class="fa fa-calendar"></i>2021-06-13</div>
-    <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 1 min read</div>
-    <div class="posttag">
-        
-        <a data-pjax href="https://Spock12138.github.io/tag/78jERNjIZ/" class="postlink">
-            <i class="fa fa-tag"></i> 算法学习记录
-        </a>
-        
-    </div>
-</div>
-
-</div>
-
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/tu-lun-xue-xi-zong-jie/" class="apost">
-            <div id="post" style="width:100%">
-                
-                <img src="\media\images\custom-postdefaultimage.png" class="postimage">
-                
-            <div class="posttitlebox">
-                <div class="posttitle" >
-                图论学习总结--Floyd，spfa与dijkstra模板
-            </div>
-    </div>
-</div>
-</a>
-<div class="postinfo">
-    <div class="postdate"><i class="fa fa-calendar"></i>2021-06-09</div>
-    <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 4 min read</div>
-    <div class="posttag">
-        
-        <a data-pjax href="https://Spock12138.github.io/tag/78jERNjIZ/" class="postlink">
-            <i class="fa fa-tag"></i> 算法学习记录
-        </a>
-        
-    </div>
-</div>
-
-</div>
-
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/liu-yue-di-yi-zhou-xue-xi-zong-jie/" class="apost">
-            <div id="post" style="width:100%">
-                
-                <img src="\media\images\custom-postdefaultimage.png" class="postimage">
-                
-            <div class="posttitlebox">
-                <div class="posttitle" >
-                算法周结--搜索，排序，链式前向星建图
-            </div>
-    </div>
-</div>
-</a>
-<div class="postinfo">
-    <div class="postdate"><i class="fa fa-calendar"></i>2021-06-06</div>
-    <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 4 min read</div>
-    <div class="posttag">
-        
-        <a data-pjax href="https://Spock12138.github.io/tag/78jERNjIZ/" class="postlink">
-            <i class="fa fa-tag"></i> 算法学习记录
-        </a>
-        
-    </div>
-</div>
-
-</div>
-
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/suan-fa-xue-xi-ji-lu-kuai-du-kuai-su-shu-chu/" class="apost">
-            <div id="post" style="width:100%">
-                
-                <img src="\media\images\custom-postdefaultimage.png" class="postimage">
-                
-            <div class="posttitlebox">
-                <div class="posttitle" >
-                算法学习记录--快读，快速输出
-            </div>
-    </div>
-</div>
-</a>
-<div class="postinfo">
-    <div class="postdate"><i class="fa fa-calendar"></i>2021-06-01</div>
-    <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 2 min read</div>
-    <div class="posttag">
-        
-        <a data-pjax href="https://Spock12138.github.io/tag/78jERNjIZ/" class="postlink">
-            <i class="fa fa-tag"></i> 算法学习记录
-        </a>
-        
-    </div>
-</div>
-
-</div>
-
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/hui-zuo-zi-mu-jiu-ke-yi-wei-suo-yu-wei/" class="apost">
-            <div id="post" style="width:100%">
-                <img src="https://Spock12138.github.io/post-images/hui-zuo-zi-mu-jiu-ke-yi-wei-suo-yu-wei.png" class="postimage">
-                <div class="posttitlebox">
-                    <div class="posttitle">
-                        会做字幕就可以为所欲为
-                    </div>
-                </div>
-            </div>
-        </a>
-        <div class="postinfo">
-            <div class="postdate"><i class="fa fa-calendar"></i>2021-05-27</div>
-            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 1 min read</div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2021-06-26</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 3 min read</div>
             <div class="posttag">
-                
-                <a data-pjax href="https://Spock12138.github.io/tag/QS_YX6REI/" class="postlink">
-                    <i class="fa fa-tag"></i> 一些好玩的尝试
-                </a>
                 
             </div>
         </div>
         
-</div>
-
-    <div class="postshow postlist">
-        
-        <a data-pjax href="https://Spock12138.github.io/post/luo-gu-p1734-zui-da-yue-shu-he/" class="apost">
-            <div id="post" style="width:100%">
-                <img src="https://Spock12138.github.io/post-images/luo-gu-p1734-zui-da-yue-shu-he.png" class="postimage">
-                <div class="posttitlebox">
-                    <div class="posttitle">
-                        洛谷P1734最大约数和
-                    </div>
-                </div>
-            </div>
-        </a>
-        <div class="postinfo">
-            <div class="postdate"><i class="fa fa-calendar"></i>2021-05-27</div>
-            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 1 min read</div>
-            <div class="posttag">
-                
-                <a data-pjax href="https://Spock12138.github.io/tag/TF2OxNHm1/" class="postlink">
-                    <i class="fa fa-tag"></i> 题解
-                </a>
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">Dijkstra+堆优化</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://Spock12138.github.io/post/dijkstradui-you-hua/</div>
+                <div id="rootaddr" style="display:none">https://Spock12138.github.io</div>
                 
             </div>
-        </div>
-        
-</div>
+            <div class="text ">
+                <p>之前咕了好久，在尝试<a href="https://www.luogu.com.cn/problem/P1339">这题</a>的时候跟着大佬学习了堆优化(<s>虽然说不加优化也能过</s>)。<br>
+<strong>先说下思想</strong>，Dij的核心就是贪心松弛，在寻找最近的点使用<code>for(i 1:n)</code>，时间复杂度是O(n)。而使用堆优化可以将复杂度降到O(logn)。<br>
+利用堆实现优先队列的功能。</p>
+<p><strong>代码</strong></p>
+<pre><code class="language-c++">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const long long inf =21474836;
+const int maxn=10005;
+const int maxm=500005;
+int n,m,s,t,edge_num;
+int dis[maxn],head[maxn];
+struct Edge
+{
+    int nxt,to,dis;
+}edge[maxm];
+/**
+下面的node节点的建立是关键。重构运算符，实现了堆操作。
+其实priority_queue也算个堆。
+**/
+struct node
+{
+    int u,v;//这里的u表示点，v表示点到目标点的距离
+    bool operator &lt;(const node &amp;b)const{
+        return u&gt;b.u;//实现距离近的点排在前列
+    }
+}
 
-</div>
-
-                    <div>
-                        <div class="pcpagi">
-    <div class="pagi">
-        <ul>
-            
-            <li><a style="width:100px">&nbsp;</a></li>
-            
-                    <li><a id="page1">1</a></li>
-                    <li><a id="page2" class="active">2</a></li>
-                    <li><a id="page3">3</a></li>
-                    
-            <li><a style="width:100px">&nbsp;</a></li>
-            
-                </ul>
-    </div>
-</div>
-
-<div id="pagination-prev" style="display:none"> 
-</div>
-<div id="pagination-next" style="display:none"> </div>
-
-<div class="pagination-container">
-      
-    
-</div>
-
-<script>
-    var prevstr = document.getElementById("pagination-prev").innerHTML;
-    var nextstr = document.getElementById("pagination-next").innerHTML;
-    var page1 = document.getElementById("page1");
-    var page2 = document.getElementById("page2");
-    var page3 = document.getElementById("page3");
-    page1.innerHTML = '-';
-    page2.innerHTML = '1';
-    page3.innerHTML = '-';
-    if (prevstr.length > 5) {
-        if (prevstr.indexOf("page/") != -1) {
-            var prevnum = parseInt(prevstr.split("page/")[1]);
-            page1.innerHTML = prevnum;
-            page2.innerHTML = prevnum + 1;
-        } else {
-            page1.innerHTML = 1;
-            page2.innerHTML = 2;
+void add_edge(int u,int v,int w)
+{
+      edge[edge_num].nxt=head[u];
+      edge[edge_num].to=v;
+      edge[edge_num].dis=w;
+      head[u]=edge_num;
+}
+void Dijkstra()
+{
+    priority_queue&lt;node&gt;q;
+    for(int i=1;i&lt;=n;++i)
+    dis[i]=inf;
+    dis[s]=0;
+    node p;
+    p.v=s;
+    p.u=dis[s];
+    while(q.size())
+    {
+        int u=q.top().v;
+        int d=q.top().u;
+        if(d!=dis[u])
+        continue;
+        for(int i=head[u];i;i=edge[i].nxt){
+            int v=edge[i].to;
+            if(dis[v]&gt;dis[u]+edge[i].dis){
+                dis[v]=dis[u]+edge[i].dis;
+                node p;
+                p.v=v,p.u=dis[v];
+                q.push(p); 
+            }
         }
     }
-    if (nextstr.indexOf("page/") != -1) {
-        var nextnum = parseInt(nextstr.split("page/")[1]);
-        page3.innerHTML = nextnum;
-        page2.innerHTML = nextnum - 1;
+}
+void solve()
+{
+    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t;//读入优化就不敲了
+    for(int i=1;i&lt;=m;++i){
+        int u,v,w;
+        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;
+        add_edge(u,v,w);
+        add_edge(v,u,w);//注意是双向边
     }
-</script>
-                    </div>
-                </div>
-                <div class="col-md-1 col-lg-2"></div>
-                
-                <!-- ----------------左侧菜单栏html 👆-------------------------------------->
-                <!------------------ 顶部菜单栏html👇--------->
-                 
-                <!------------------ 顶部菜单栏html👆--------->
-                </div>
+    Dijkstra();
+    cout&lt;&lt;dis[t]&lt;&lt;endl;
+}
+int main()
+{
+    solve()
+    return 0;
+}
+</code></pre>
+
             </div>
-            <div id="bg">
+            <hr style="width: 80%;">
+            
+            <div class="donateContainer">
+                <span class="donatebtn">赏</span>
             </div>
-            <!------- 背景图加载方式👇----- -->
-            <div id="bgchoice" style="display: none">default
+            <div class="donateContainer">
+                <img src="" alt="" class="donate">
             </div>
             
-            <div id="bgurl" style="display:none">\media\images\custom-bgimage.png</div>
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong></li>
+            <li><strong>原文链接：</strong>https://Spock12138.github.io/post/dijkstradui-you-hua/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+            <div class="shareContainer">
+                <div class="share" style="height:30px;background: white;">
+                    <a class="qq" href=""><i><img class="shareicon"
+                                src="https://Spock12138.github.io/media/images/qqs.png" alt=""></i></a>
+                    <a class="wechat" href=""><i><img class="shareicon"
+                                src="https://Spock12138.github.io/media/images/wechats.png" alt=""></i></a>
+                    <a class="weibo" href=""><i><img class="shareicon"
+                                src="https://Spock12138.github.io/media/images/weibos.png" alt=""></i></a>
+                    <a class="qzone" href=""><i><img class="shareicon"
+                                src="https://Spock12138.github.io/media/images/qzones.png" alt=""></i></a>
+                    <a class="douban" href=""><i><img class="shareicon"
+                                src="https://Spock12138.github.io/media/images/doubans.png" alt=""></i></a>
+                    <a class="facebook" href=""><i><img class="shareicon"
+                                src="https://Spock12138.github.io/media/images/facebooks.png" alt=""></i></a>
+                    <a class="twitter" href=""><i><img class="shareicon"
+                                src="https://Spock12138.github.io/media/images/twitter.png" alt=""></i></a>
+                </div>
+            </div>
             
-            <!------- 背景图加载方式👆----- --> 
-        <div id="landlord">
-            <div class="message" style="opacity:0"></div>
-            <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+        <div id="otherpost">
+            
+            
+            <a data-pjax class="next-post-pc" href="https://Spock12138.github.io/post/qia-te-lan-shu-si-chong-tui-dao/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    
+                    <img src="\media\images\custom-postdefaultimage.png" style="width: 100%;" class="opimg">
+                    
+                    
+                    <h4 class="optitle">卡特兰数三种推导</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://Spock12138.github.io/post/qia-te-lan-shu-si-chong-tui-dao/">卡特兰数三种推导</a>
+            </div>
+            
         </div>
     </div>
-        
-    <div id="domainname" style="display:none">https://Spock12138.github.io
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                                    <p>请到客户端“主题--自定义配置--配置”中填入leancloud_appID和key</p>
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
         </div>
+        <!-- aplayer播放器加载👇 -->
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    
 
-<!-------------------- live2d功能👇 --------------------------->
-    
-        <script type="text/javascript">
-            var message_Path = '/live2d/'
-            var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
-        </script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/live2d.js"></script>
-        <script type="text/javascript" src="https://Spock12138.github.io/media/live2d/js/message.js"></script>
-        <script type="text/javascript">
-            loadlive2d("live2d", "https://Spock12138.github.io/media/live2d/assets/tororo.model.json");
-        </script>
-    
-<!-------------------- live2d功能👆 --------------------------->
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">default
+                </div>
+                
+                <div id="bgurl" style="display:none">\media\images\custom-bgimage.png</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    imglazyloadinit()
+    lazyload();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/live2d.js"></script>
+<script type="text/javascript" src="https://Spock12138.github.io/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://Spock12138.github.io/media/live2d/assets/tororo.model.json");
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
 
 <!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
 <script>
@@ -1406,16 +1227,28 @@ menulist.eq(i).show();
         for (var i = 0; i < 3; i++)
             bgurl = bgurl.replace("\\", "/");
     bg.css("background", "url('" + bgurl + "')");
-
-    window.onload = function () {
-        aplayerbtnInit();
-    }
 </script>
 <!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
 
-        <script src="https://Spock12138.github.io/media/js/index.js"></script>
-        
-</body>
-</html>
+
+
+<script src="https://Spock12138.github.io/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://Spock12138.github.io/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->

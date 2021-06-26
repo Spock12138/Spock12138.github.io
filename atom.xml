@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-06-21T14:07:01.302Z</updated>
+    <updated>2021-06-26T09:13:47.395Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -10,6 +10,92 @@
     <logo>https://Spock12138.github.io/images/avatar.png</logo>
     <icon>https://Spock12138.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 安半愚的小窝</rights>
+    <entry>
+        <title type="html"><![CDATA[Dijkstra+堆优化]]></title>
+        <id>https://Spock12138.github.io/post/dijkstradui-you-hua/</id>
+        <link href="https://Spock12138.github.io/post/dijkstradui-you-hua/">
+        </link>
+        <updated>2021-06-26T08:38:15.000Z</updated>
+        <content type="html"><![CDATA[<p>之前咕了好久，在尝试<a href="https://www.luogu.com.cn/problem/P1339">这题</a>的时候跟着大佬学习了堆优化(<s>虽然说不加优化也能过</s>)。<br>
+<strong>先说下思想</strong>，Dij的核心就是贪心松弛，在寻找最近的点使用<code>for(i 1:n)</code>，时间复杂度是O(n)。而使用堆优化可以将复杂度降到O(logn)。<br>
+利用堆实现优先队列的功能。</p>
+<p><strong>代码</strong></p>
+<pre><code class="language-c++">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const long long inf =21474836;
+const int maxn=10005;
+const int maxm=500005;
+int n,m,s,t,edge_num;
+int dis[maxn],head[maxn];
+struct Edge
+{
+    int nxt,to,dis;
+}edge[maxm];
+/**
+下面的node节点的建立是关键。重构运算符，实现了堆操作。
+其实priority_queue也算个堆。
+**/
+struct node
+{
+    int u,v;//这里的u表示点，v表示点到目标点的距离
+    bool operator &lt;(const node &amp;b)const{
+        return u&gt;b.u;//实现距离近的点排在前列
+    }
+}
+
+void add_edge(int u,int v,int w)
+{
+      edge[edge_num].nxt=head[u];
+      edge[edge_num].to=v;
+      edge[edge_num].dis=w;
+      head[u]=edge_num;
+}
+void Dijkstra()
+{
+    priority_queue&lt;node&gt;q;
+    for(int i=1;i&lt;=n;++i)
+    dis[i]=inf;
+    dis[s]=0;
+    node p;
+    p.v=s;
+    p.u=dis[s];
+    while(q.size())
+    {
+        int u=q.top().v;
+        int d=q.top().u;
+        if(d!=dis[u])
+        continue;
+        for(int i=head[u];i;i=edge[i].nxt){
+            int v=edge[i].to;
+            if(dis[v]&gt;dis[u]+edge[i].dis){
+                dis[v]=dis[u]+edge[i].dis;
+                node p;
+                p.v=v,p.u=dis[v];
+                q.push(p); 
+            }
+        }
+    }
+}
+void solve()
+{
+    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t;//读入优化就不敲了
+    for(int i=1;i&lt;=m;++i){
+        int u,v,w;
+        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;
+        add_edge(u,v,w);
+        add_edge(v,u,w);//注意是双向边
+    }
+    Dijkstra();
+    cout&lt;&lt;dis[t]&lt;&lt;endl;
+}
+int main()
+{
+    solve()
+    return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[卡特兰数三种推导]]></title>
         <id>https://Spock12138.github.io/post/qia-te-lan-shu-si-chong-tui-dao/</id>

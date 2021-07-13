@@ -256,7 +256,7 @@ fi=..." />
                         src='https://Spock12138.github.io/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
         </div>
         <div class="avatar-border">
-            <img src="https://Spock12138.github.io/images/avatar.png?v=1626089243548" class="avatar">
+            <img src="https://Spock12138.github.io/images/avatar.png?v=1626185482430" class="avatar">
         </div>
         <div class="sitename">安半愚的小窝</div>
         <span class="description" data-text='["不积跬步无以至千里"]'>&nbsp;</span>
@@ -972,7 +972,7 @@ menulist.eq(i).show();
             </div>
             <div class="postinfo-detail">
                 <div class="postdate"><i class="fa fa-calendar"></i>2021-06-27</div>
-            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 2 min read</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 3 min read</div>
             <div class="posttag">
                 
                 <a data-pjax href="https://Spock12138.github.io/tag/78jERNjIZ/" class="postlink">
@@ -1038,7 +1038,37 @@ menulist.eq(i).show();
 </code></pre>
 <p>2.<strong>完全背包</strong><br>
 一件物品可以放任意多次</p>
-<pre><code class="language-c++"></code></pre>
+<pre><code class="language-c++">void solve()
+{
+    for(int i=1;i&lt;=n;++i){
+        for(int j=w[i];j&lt;=W;++j)
+        f[j]=max(f[j],f[j-w[i]]+v[i]);
+    }
+}
+</code></pre>
+<p>3.<strong>混合背包</strong><br>
+一件物品可以放指定个数。混合背包相当于01背包加上二进制分组优化（这里二进制分组优化是比较简单的，相当于改变了物品的种类，但同时能够满足各种组合）。</p>
+<pre><code class="language-c++">//其中index与系统变量名冲突，这条咸鱼懒得改了
+int index;
+struct LIST{
+    int v,w;
+}List[maxn];
+void bin_group()
+{
+    for(int i=1;i&lt;=n;++i){
+        int c=1,p,h,k;
+        cin&gt;&gt;p&gt;&gt;h&gt;&gt;k;
+        while(k-c&gt;0){
+            k-=c;
+            List[++index].w=c*p;
+            List[index].v=c*h;
+            c*=2;
+        }
+        List[++index].w=k*p;
+        List[++index].v=k*h;
+    }
+}
+</code></pre>
 
             </div>
             <hr style="width: 80%;">

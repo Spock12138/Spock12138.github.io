@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-07-13T14:11:25.444Z</updated>
+    <updated>2021-07-17T13:26:32.437Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -92,7 +92,7 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[动态规划学习笔记]]></title>
+        <title type="html"><![CDATA[动态规划学习笔记--背包dp]]></title>
         <id>https://Spock12138.github.io/post/dong-tai-gui-hua-xue-xi-bi-ji/</id>
         <link href="https://Spock12138.github.io/post/dong-tai-gui-hua-xue-xi-bi-ji/">
         </link>
@@ -175,6 +175,38 @@ void bin_group()
     }
 }
 </code></pre>
+<p>4.<strong>二维费用背包</strong><br>
+这里选择一个物品，消耗两种价值，<a href="https://www.luogu.com.cn/problem/P1855">题目在这里</a>。<br>
+根据<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>01</mn></mrow><annotation encoding="application/x-tex">01</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">1</span></span></span></span>背包，多加一维，代表另一种被消耗的价值。<br>
+大致代码如下</p>
+<pre><code class="language-c++">for(int i=1;i&lt;=n;++i){
+    for(int j=W;j&gt;=w[i];--j)
+    for(int k=V;k&gt;=v[i];--k)
+    f[i][k]=max(f[i][k],f[i-w[i]][k-v[i]]+1);
+}
+</code></pre>
+<p>5.<strong>分组背包</strong><br>
+每个物品有所属组，相同组的物品冲突。<br>
+没啥特殊的，就是注意分组与枚举顺序即可。</p>
+<pre><code class="language-c++">void solve()
+{
+    cin&gt;&gt;n&gt;&gt;W;//n个物品，空间是W
+    for(int i=1;i&lt;=n;++i){
+        cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;//a是价值，b是消费，c是所属组
+        maxm=max(maxm,c);//最后有多少个组
+        cc[c]++;//每个组的物品个数
+        v[k][cc[c]]=a;w[k][cc[c]]=b;
+    }
+    for(int i=1;i&lt;=maxm;++i){
+        for(int j=W;j&gt;=0;--j)
+        for(int k=1;k&lt;=cc[i];++k)
+        if(j&gt;=w[i][k])
+        f[j]=max(f[j],f[j-w[i][k]]+v[i][k]);
+    }
+}
+</code></pre>
+<p>这里关于枚举顺序，可以尝试自己创造几个数带入，会发现，一个组的物品只会选一个。<br>
+先空间再物品的枚举顺序，可以达到一个组的物品不冲突的目的。</p>
 ]]></content>
     </entry>
     <entry>

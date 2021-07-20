@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Spock12138.github.io</id>
     <title>安半愚的小窝</title>
-    <updated>2021-07-17T14:17:07.756Z</updated>
+    <updated>2021-07-20T01:56:55.660Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Spock12138.github.io"/>
     <link rel="self" href="https://Spock12138.github.io/atom.xml"/>
@@ -10,6 +10,69 @@
     <logo>https://Spock12138.github.io/images/avatar.png</logo>
     <icon>https://Spock12138.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 安半愚的小窝</rights>
+    <entry>
+        <title type="html"><![CDATA[排序算法学习笔记]]></title>
+        <id>https://Spock12138.github.io/post/pai-xu-suan-fa-xue-xi-bi-ji/</id>
+        <link href="https://Spock12138.github.io/post/pai-xu-suan-fa-xue-xi-bi-ji/">
+        </link>
+        <updated>2021-07-19T06:03:59.000Z</updated>
+        <content type="html"><![CDATA[<p>暑假正式系统归纳之前学过的算法。遂<s>水篇博客</s>，记录，复习之前学过的排序算法。<br>
+排序的分类：1.<strong>计数排序</strong>  2.<strong>递归型排序</strong></p>
+<p><strong>一.选择排序</strong><br>
+简介：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>e</mi><mi>l</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mtext>  </mtext><mi>s</mi><mi>o</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Selection  ~~ sort</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mspace nobreak"> </span><span class="mspace nobreak"> </span><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> ，思路是找到当前数组中最小元素往前排。</p>
+<pre><code class="language-c++">void selection_sort(int *a, int l)
+{
+    for (int i = 1; i &lt;= n; ++i)
+    {
+        int ith = i;
+        for (int j = i + 1; j &lt;= n; ++j)
+        {
+            if (a[j] &lt; a[ith])
+                ith = j;
+        }
+        swap(a[i], a[ith]);
+    }
+}
+</code></pre>
+<p><strong>二.冒泡排序</strong><br>
+简介：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi><mi>u</mi><mi>b</mi><mi>b</mi><mi>l</mi><mi>e</mi><mtext>  </mtext><mi>s</mi><mi>o</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Bubble ~~ sort</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mord mathdefault">u</span><span class="mord mathdefault">b</span><span class="mord mathdefault">b</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mspace nobreak"> </span><span class="mspace nobreak"> </span><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> ，双层遍历，大的下沉，小的上浮。</p>
+<pre><code class="language-c++">void bubble_sort(int *a, int n)
+{
+    bool flag = true;
+    while (flag)
+    {
+        flag = false;
+        for (int i = 1; i &lt; n; ++i)
+        {
+            if (a[i] &gt; a[i + 1])
+            {
+                flag = true;
+                swap(a[i], a[i + 1]);
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>三.插入排序</strong><br>
+简介：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>n</mi><mi>s</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mtext>  </mtext><mi>s</mi><mi>o</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Insection  ~~sort</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mspace nobreak"> </span><span class="mspace nobreak"> </span><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> ，类似打牌。每张牌插入符合自己次序的位置，最终整体有序。</p>
+<pre><code class="language-c++">void inserction_sort(int *a, int n)
+{
+    for (int i = 2; i &lt;= n; ++i)
+    {
+        int key = a[i], j = i - 1;
+        while (j &gt; 0 &amp;&amp; a[j] &gt; a[i])
+        {
+            a[j + 1] = a[j]; //此处j+1，易错
+            --j;
+        }
+        a[j + 1] = key;//记得加一,多减一次
+    }
+}
+</code></pre>
+<p><strong>四.计数排序</strong><br>
+简介: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>t</mi><mi>i</mi><mi>n</mi><mi>g</mi><mtext>  </mtext><mi>s</mi><mi>o</mi><mi>r</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Counting ~~ sort</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mspace nobreak"> </span><span class="mspace nobreak"> </span><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span></span></span></span> , 在<a href="https://oi-wiki.org/basic/counting-sort/">oiwiki</a>上了解到</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于VScode的c/c++环境配置]]></title>
         <id>https://Spock12138.github.io/post/guan-yu-vscode-de-cchuan-jing-pei-zhi/</id>
@@ -206,7 +269,46 @@ void bin_group()
 }
 </code></pre>
 <p>这里关于枚举顺序，可以尝试自己创造几个数带入，会发现，一个组的物品只会选一个。<br>
-先空间再物品的枚举顺序，可以达到一个组的物品不冲突的目的。</p>
+先空间再物品的枚举顺序，可以达到一个组的物品不冲突的目的。<br>
+6.<strong>有依赖的背包</strong><br>
+和分组背包类似。<br>
+物品分为主件和附件。附件不能脱离主件存在。<br>
+洛谷例题，最多只有两个附件的情形 <a href="https://www.luogu.com.cn/problem/P1064">点这里</a>。<br>
+<strong>问题分析</strong>：思路和01背包类似。两个地方不同：<br>
+1.输入预处理，根据信息分组<br>
+2.枚举每个主件存在的可能</p>
+<pre><code class="language-c++">void solve()
+{
+    cin&gt;&gt;n&gt;&gt;W;
+    for(int i=1;i&lt;=n;++i){
+        cin&gt;&gt;v&gt;&gt;w&gt;&gt;p;
+        if(p==0)
+        m_i_w=v,
+        m_i_v=v*w;
+        else {
+            a_i_w[p][0]++;//此处，p代表物品编号p的附件
+            a_i_w[p][a_i_w[p][0]]=w;
+            a_i_v[p][a_i_w[p][0]];
+        }
+        for(int i=1;i&lt;=n;++i){
+            for(int j=W;j&gt;=m_i_w[i]&amp;&amp;m_i_w[i]!=0;--j){//判断不为零，即不存在
+            f[j]=max(f[j],f[j-m_i_w[i]]+m_i_v[i]);
+            if(j&gt;=m_i_w[i]+a_i_w[i][1])
+            f[j]=max(f[j],f[j-m_i_w[i]-a_i_w[i][1]]+m_i_v[i]+a_i_w[i][1]]);
+            /**
+            还有两种情况，即主键加上附件二
+            主键加上附件一，附件二。~~懒得打了~~
+            main_item :主键
+            annex_item :附件
+            **/
+            }
+        }
+    }
+}
+</code></pre>
+<p>花了一个月，过了一遍背包dp。以后有时间继续学习动规。现在打算把上学期的计算机算法课件过一遍。</p>
+<pre><code>                                                        于二零二一年七月八日
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -774,64 +876,6 @@ dfs相对的是拥有回溯功能，能够回溯时间。
           return 0;
       }
 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[算法学习记录--快读，快速输出]]></title>
-        <id>https://Spock12138.github.io/post/suan-fa-xue-xi-ji-lu-kuai-du-kuai-su-shu-chu/</id>
-        <link href="https://Spock12138.github.io/post/suan-fa-xue-xi-ji-lu-kuai-du-kuai-su-shu-chu/">
-        </link>
-        <updated>2021-06-01T13:46:52.000Z</updated>
-        <content type="html"><![CDATA[<p>对于数据量不大的题目，我们可以直接采用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>i</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">cin</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span></span></span></span>， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>u</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cout</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span></span></span></span> 输入输出。当数据量相对大的时候，可以插入  ios::sync_with_stdio(false) 与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>i</mi><mi>n</mi><mi mathvariant="normal">.</mi><mi>t</mi><mi>i</mi><mi>e</mi><mo>(</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">cin.tie(0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord">.</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">e</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span></span></span></span> 关闭同步流。这时cin读入速度已经超过scanf了。<br>
-但是遇到数据输入特别特别大(毒瘤)的情况下，以上方法均不适用。可以尝试使用快读</p>
-<pre><code class="language-c++">inline int read()
-{
-    int c=0,f=1;
-    char ch=getchar();
-    while(ch&lt;'0'||ch&gt;'9'){
-        if(ch=='-')
-        f*=-1;
-        ch=getchar();
-    }
-    while(ch&gt;='0'&amp;&amp;ch&lt;='9'){
-        c=c*10+ch-'0';//(c&lt;&lt;3)+(c&lt;&lt;1)
-        ch=getchar();
-    }
-    return c*f;
-}
-
-</code></pre>
-<p>快速输出(然而还没有printf()快)</p>
-<pre><code class="language-c++">char f[200];
-inline void write(int x)
-{
-   int tmp=x&gt;0?x:-x;
-   if(x&lt;0)
-   putchar('-');
-   int cnt=0;
-   while(tmp&gt;0){
-       f[++cnt]=tmp%10+'0';
-       tmp/=10;
-   }
-   while(cnt&gt;0){
-       putchar(f[cnt]);
-       --cnt;
-   }
-   return ;
-}
-</code></pre>
-<p>递归模式的</p>
-<pre><code class="language-c++">inline void write(int x)
-{
-    if(x&lt;0){
-        putchar('-');
-        x*=-1;
-    }
-    if(x&gt;9)
-    write(x/10);
-    putchar(x%10+'0');
-}
 </code></pre>
 ]]></content>
     </entry>

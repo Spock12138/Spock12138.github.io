@@ -256,7 +256,7 @@ fi=..." />
                         src='https://Spock12138.github.io/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
         </div>
         <div class="avatar-border">
-            <img src="https://Spock12138.github.io/images/avatar.png?v=1626531032607" class="avatar">
+            <img src="https://Spock12138.github.io/images/avatar.png?v=1626746213505" class="avatar">
         </div>
         <div class="sitename">安半愚的小窝</div>
         <span class="description" data-text='["不积跬步无以至千里"]'>&nbsp;</span>
@@ -265,7 +265,7 @@ fi=..." />
             <span class="siteinfo">标签</span>
         </div>
         <div class="siteinfocontainer">
-            <span class="siteinfo">16</span>
+            <span class="siteinfo">17</span>
             <span class="siteinfo">3</span>
         </div>
         
@@ -454,6 +454,13 @@ fi=..." />
     <script>let postsnum = 0;</script>
     <div id="side-posttitle" style="display: none;">
         
+    
+    排序算法学习笔记
+    <script>
+        postsnum += 1
+    </script>
+    
+    
     
     关于VScode的c/c++环境配置
     <script>
@@ -972,7 +979,7 @@ menulist.eq(i).show();
             </div>
             <div class="postinfo-detail">
                 <div class="postdate"><i class="fa fa-calendar"></i>2021-06-27</div>
-            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 5 min read</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 6 min read</div>
             <div class="posttag">
                 
                 <a data-pjax href="https://Spock12138.github.io/tag/78jERNjIZ/" class="postlink">
@@ -1100,7 +1107,46 @@ void bin_group()
 }
 </code></pre>
 <p>这里关于枚举顺序，可以尝试自己创造几个数带入，会发现，一个组的物品只会选一个。<br>
-先空间再物品的枚举顺序，可以达到一个组的物品不冲突的目的。</p>
+先空间再物品的枚举顺序，可以达到一个组的物品不冲突的目的。<br>
+6.<strong>有依赖的背包</strong><br>
+和分组背包类似。<br>
+物品分为主件和附件。附件不能脱离主件存在。<br>
+洛谷例题，最多只有两个附件的情形 <a href="https://www.luogu.com.cn/problem/P1064">点这里</a>。<br>
+<strong>问题分析</strong>：思路和01背包类似。两个地方不同：<br>
+1.输入预处理，根据信息分组<br>
+2.枚举每个主件存在的可能</p>
+<pre><code class="language-c++">void solve()
+{
+    cin&gt;&gt;n&gt;&gt;W;
+    for(int i=1;i&lt;=n;++i){
+        cin&gt;&gt;v&gt;&gt;w&gt;&gt;p;
+        if(p==0)
+        m_i_w=v,
+        m_i_v=v*w;
+        else {
+            a_i_w[p][0]++;//此处，p代表物品编号p的附件
+            a_i_w[p][a_i_w[p][0]]=w;
+            a_i_v[p][a_i_w[p][0]];
+        }
+        for(int i=1;i&lt;=n;++i){
+            for(int j=W;j&gt;=m_i_w[i]&amp;&amp;m_i_w[i]!=0;--j){//判断不为零，即不存在
+            f[j]=max(f[j],f[j-m_i_w[i]]+m_i_v[i]);
+            if(j&gt;=m_i_w[i]+a_i_w[i][1])
+            f[j]=max(f[j],f[j-m_i_w[i]-a_i_w[i][1]]+m_i_v[i]+a_i_w[i][1]]);
+            /**
+            还有两种情况，即主键加上附件二
+            主键加上附件一，附件二。~~懒得打了~~
+            main_item :主键
+            annex_item :附件
+            **/
+            }
+        }
+    }
+}
+</code></pre>
+<p>花了一个月，过了一遍背包dp。以后有时间继续学习动规。现在打算把上学期的计算机算法课件过一遍。</p>
+<pre><code>                                                        于二零二一年七月八日
+</code></pre>
 
             </div>
             <hr style="width: 80%;">
